@@ -9,8 +9,8 @@ struct cache* criar_cache(unsigned int tamanho, unsigned int Tam_bloco){
 	for(i=0;i<Num_set;i++){
 		c->bloco[i] = (struct Bloco_cache*)malloc(4*sizeof(struct Bloco_cache));
 		for(j=0;j<4;j++){
-			c->bloco[i][j].valido = false;
-			c->bloco[i][j].indice = false;
+			c->bloco[i][j].valido = 0;
+			c->bloco[i][j].indice = 0;
 			c->bloco[i][j].tag = 0;
 		}
 	}
