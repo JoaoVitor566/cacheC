@@ -20,9 +20,6 @@ struct cache* criar_cache(unsigned int tamanho, unsigned int Tam_bloco){
 	
 }
 
-static void Tam_endereco(struct cache* c){
-	unsigned int tam = sizeof()
-}
 
 void freeCache(Struct cache* c){
 	unsigned int i;
