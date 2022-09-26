@@ -4,13 +4,14 @@
 
 
 
+
 int main() {
 	FILE *arq;
-	arq = fopen("C:\\Users\\Jo„o Vitor\\Documents\\Trabalhocache\\txt\\EXcache.txt","r");
+	arq = fopen("C:\\Users\\Jo√£o Vitor\\Documents\\Trabalhocache\\txt\\EXcache.txt","r");
 	
-	int Tcache, Bcache, num, i, end;
-	float Tc, TRM, TWM, ciclo;
+	int Tcache, Bcache, num, i, end, Tc, TRM, TWM, ciclo,j;
 	char tipo;
+	struct cache* c;
 	
 	
 	//Verifica se conseguiu abrir o arquivo
@@ -20,19 +21,35 @@ int main() {
 	}
 	
 	//Leitura primeira linha
-	fscanf(arq, "%d %d %f %f %f", &Tcache, &Bcache, &Tc, &TRM, &TWM);
-	printf("%d %d %.0f %.0f %.0f\n", Tcache, Bcache, Tc, TRM, TWM);
+	fscanf(arq, "%d %d %d %d %d", &Tcache, &Bcache, &Tc, &TRM, &TWM);
+	c = criar_cache(Tcache,Bcache,Tc,TRM,TWM);
 	
 	//Leitura segunda linha
 	fscanf(arq, "%d", &num);
-	printf("%d\n", num);
 	
 	//Leitura linhas restantes
 	for(i=0;i<num;i++){
-		fscanf(arq, "%f %s %d", &ciclo, &tipo, &end);
-		printf("%.0f %c %d\n", ciclo, tipo, end);
+		fscanf(arq, "%d %c %d", &ciclo, &tipo, &end);
+		c = Procurar_cache(c,ciclo,tipo,end);
 	}
-	printf("%d 4 %d LRU WB WNA %.0f %.0f %.0f\n", Tcache, Bcache, Tc, TRM, TWM);
+	
+	
+	
+	
+	printf("%d 4 %d LRU WB WNA %d %d %d\n", Tcache, Bcache, Tc, TRM, TWM);
+	printf("%d\n", c->tt);
+	printf("%d %d\n",c->miss, c->hit);
+	printf("%d\n", c->num_linhas);
+	for(i=0;i<c->num_linhas;i++){
+		for(j=0;j<4;j++){
+			printf("%d ", c->bloco[i][j].dados);
+		}
+		printf("\n");
+	}
+	freeCache(c);
 	fclose(arq);
+	
+	
 	return 0;
 }
+	
